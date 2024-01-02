@@ -475,14 +475,20 @@ function createEyeLights() {
 
 //#region ANIMATIONS
 
-let walk = true;
+function animate() {
+    // spotlight changes
+    spotLight.angle = options.spotLightAngle;
+    spotLight.penumbra = options.spotLightPenumbra;
+    spotLight.intensity = options.spotLightIntensity;
+
+    renderer.render(scene, activeCamera);
+}
+
 let maxRotationMembers = Math.PI / 9;
 let moveMembers = true;
 
-function animate() {
-
-    // walking animation
-    if (walk == true) {
+function walk() {
+    for (i = 0; i < 15; i++) {
         if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
             moveMembers = !moveMembers;
         }
@@ -496,13 +502,6 @@ function animate() {
             rightLeg.rotation.x += 0.02;
         }
     }
-
-    // spotlight changes
-    spotLight.angle = options.spotLightAngle;
-    spotLight.penumbra = options.spotLightPenumbra;
-    spotLight.intensity = options.spotLightIntensity;
-
-    renderer.render(scene, activeCamera);
 }
 
 renderer.setAnimationLoop(animate)
@@ -534,19 +533,23 @@ function moveRobot(number) {
     switch (number) {
         case 73:
             resetRotationRobot();
-            translateRobot(0, 0.1)
+            translateRobot(0, 0.1);
+            walk();
             break;
         case 75:
             rotateRobot(1)
             translateRobot(0, -0.1)
+            walk();
             break;
         case 74:
             rotateRobot(-2)
             translateRobot(-0.1)
+            walk();
             break;
         case 76:
             rotateRobot(2)
             translateRobot(0.1)
+            walk();
             break;
         case 65:
             rotateRobotBody(0.1)

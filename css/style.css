@@ -21,7 +21,6 @@ canvas {
     z-index: 1;
 }
 
-
 .button-container-rotate {
     display: grid;
     grid-template-columns: repeat(3, 50px);
@@ -45,4 +44,16 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.large-game-button {
+    width: 170px;
+    height: 50px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    grid-column: span 3;
+    color: white;
 }
