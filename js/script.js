@@ -20,7 +20,7 @@ camera.position.y = 1;
 
 //#endregion
 
-//#region const AND DEFINE TEXTURES 
+//#region IMPORT AND DEFINE TEXTURES 
 
 const textureLoader = new THREE.TextureLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -416,8 +416,8 @@ spotLight.intensity = 1;
 spotLight.castShadow = true;
 spotLight.penumbra = 0;
 
-var spotLightHelper = new THREE.SpotLightHelper(spotLight);
-scene.add(spotLightHelper);
+//var spotLightHelper = new THREE.SpotLightHelper(spotLight);
+//scene.add(spotLightHelper);
 
 // directional light
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.8);
@@ -426,8 +426,8 @@ directionalLight.position.set(-3, 1, -4);
 directionalLight.intensity = 1;
 directionalLight.castShadow = true;
 
-var DirectionalLightHelper = new THREE.DirectionalLightHelper(directionalLight);
-scene.add(DirectionalLightHelper)
+//var DirectionalLightHelper = new THREE.DirectionalLightHelper(directionalLight);
+//scene.add(DirectionalLightHelper)
 
 // point light
 const pointLight = new THREE.PointLight(0xFFFFFF, 1, 100);
@@ -435,8 +435,8 @@ pointLight.position.set(3, 2, 0)
 pointLight.castShadow = true;
 scene.add(pointLight);
 
-var pointlighthelper = new THREE.PointLightHelper(pointLight);
-scene.add(pointlighthelper)
+//var pointlighthelper = new THREE.PointLightHelper(pointLight);
+//scene.add(pointlighthelper)
 //#endregion
 
 //#region ANIMATIONS
@@ -483,17 +483,17 @@ window.addEventListener("resize", function () {
 // Add key pressed event
 document.addEventListener("keydown", function (event) {
     switch (event.keyCode) {
-        case 37:
-            translateRobot(-0.1)
-            break;
-        case 38:
+        case 73:
             translateRobot(0, 0.1)
             break;
-        case 39:
-            translateRobot(0.1)
-            break;
-        case 40:
+        case 75:
             translateRobot(0, -0.1)
+            break;
+        case 74:
+            translateRobot(-0.1)
+            break;
+        case 76:
+            translateRobot(0.1)
             break;
         case 65:
             rotateRobotBody(0.1)
