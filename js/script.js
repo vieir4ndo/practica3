@@ -1,5 +1,5 @@
 //#region OPTIONS
-
+// Variables that will be used by the controls to change the scene
 const options = {
     spotLight: true,
     spotLightAngle: 0.8,
@@ -15,16 +15,13 @@ const options = {
 
 //#region IMPORT AND DEFINE TEXTURES 
 
-//const texture_url = "http://virtual.lab.inf.uva.es:23172";
-const texture_url = "../";
-
 const textureLoader = new THREE.TextureLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 
 //#region STARS TEXTURE 2D
-const stars_texture = texture_url + 'practica3/img/stars_texture.jpg'
+const stars_texture = '../practica3/img/stars_texture.jpg'
 
-const ceiling = cubeTextureLoader.load([
+const stars = cubeTextureLoader.load([
     stars_texture,
     stars_texture,
     stars_texture,
@@ -35,7 +32,7 @@ const ceiling = cubeTextureLoader.load([
 //#endregion
 
 //#region METAL 006 TEXTURE 2D
-const metal_006_roughnessTexture = texture_url + 'practica3/img/Metal_006_SD/Metal_006_roughness.jpg';
+const metal_006_roughnessTexture = '../practica3/img/Metal_006_SD/Metal_006_roughness.jpg';
 
 const metal_006 = new THREE.MeshStandardMaterial({
     map: textureLoader.load(metal_006_roughnessTexture),
@@ -43,7 +40,7 @@ const metal_006 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL RUSTED TEXTURE 2D
-const metal_rusted_basecolor = texture_url + 'practica3/img/Metal_Rusted_010_SD/Metal_Rusted_010_basecolor.jpg';
+const metal_rusted_basecolor = '../practica3/img/Metal_Rusted_010_SD/Metal_Rusted_010_basecolor.jpg';
 
 const metal_rusted = new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide,
@@ -52,12 +49,12 @@ const metal_rusted = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL 004 TEXTURE 3D
-const metal_004_aoTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_ambientOcclusion.jpg';
-const metal_004_basecolor = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_basecolor.jpg';
-const metal_004_metalnessTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_metallic.jpg';
-const metal_004_normalTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_normal.jpg';
-const metal_004_roughnessTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_roughness.jpg';
-const metal_004_emissiveTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_emissive.jpg';
+const metal_004_aoTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_ambientOcclusion.jpg';
+const metal_004_basecolor = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_basecolor.jpg';
+const metal_004_metalnessTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_metallic.jpg';
+const metal_004_normalTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_normal.jpg';
+const metal_004_roughnessTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_roughness.jpg';
+const metal_004_emissiveTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_emissive.jpg';
 
 const metal_004 = new THREE.MeshStandardMaterial({
     aoMap: textureLoader.load(metal_004_aoTexture),
@@ -70,11 +67,11 @@ const metal_004 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL 002 TEXTURE 3D
-const metal_002_aoTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_ambientOcclusion.jpg';
-const metal_002_basecolor = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_basecolor.jpg';
-const metal_002_metalnessTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_metallic.jpg';
-const metal_002_normalTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_normal.jpg';
-const metal_002_roughnessTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_roughness.jpg';
+const metal_002_aoTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_ambientOcclusion.jpg';
+const metal_002_basecolor = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_basecolor.jpg';
+const metal_002_metalnessTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_metallic.jpg';
+const metal_002_normalTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_normal.jpg';
+const metal_002_roughnessTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_roughness.jpg';
 
 const metal_002 = new THREE.MeshStandardMaterial({
     aoMap: textureLoader.load(metal_002_aoTexture),
@@ -87,7 +84,7 @@ const metal_002 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region GLASS TEXTURE 2D
-const glass_basecolor = texture_url + 'practica3/img/Glass_Window_001_SD/Glass_Window_001_basecolor.jpg';
+const glass_basecolor = '../practica3/img/Glass_Window_001_SD/Glass_Window_001_basecolor.jpg';
 
 const green_glass = new THREE.MeshPhysicalMaterial({
     map: textureLoader.load(glass_basecolor),
@@ -110,7 +107,7 @@ const red_glass = new THREE.MeshPhysicalMaterial({
 //#endregion
 
 //#region MOON TEXTURE 2D
-const moon_texture = texture_url + 'practica3/img/moon_texture.jpg';
+const moon_texture = '../practica3/img/moon_texture.jpg';
 const moon = new THREE.MeshStandardMaterial({
     map: textureLoader.load(moon_texture),
     side: THREE.DoubleSide
@@ -118,7 +115,7 @@ const moon = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region RUBBER TEXTURE 2D
-const rubber_texture = texture_url + 'practica3/img/rubber_texture.avif';
+const rubber_texture = '../practica3/img/rubber_texture.avif';
 const rubber = new THREE.MeshStandardMaterial({
     map: textureLoader.load(rubber_texture),
     side: THREE.DoubleSide
@@ -142,11 +139,11 @@ const scene = new THREE.Scene();
 
 //#region ROBOT
 
-//#region Body
+//#region Body Group
 let bodyGroup = new THREE.Group();
 
+//#region Body
 const bodyGeometry = new THREE.BoxGeometry(1, 1, 0.5);
-
 
 const bodyMaterial = [
     metal_006,
@@ -159,6 +156,7 @@ const bodyMaterial = [
 const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
 body.receiveShadow = true;
 body.castShadow = true;
+//#endregion
 
 //#region Neck
 var neckGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.3);
@@ -169,7 +167,7 @@ neck.receiveShadow = true;
 neck.castShadow = true;
 //#endregion
 
-//#region Right Leg
+//#region Right Leg Group
 let rightLeg = new THREE.Group();
 
 //#region Right Tight
@@ -196,7 +194,7 @@ rightLeg.add(rightFoot);
 
 //#endregion
 
-//#region Left Leg
+//#region Left Leg Group
 let leftLeg = new THREE.Group();
 
 //#region Left Tight
@@ -209,7 +207,7 @@ leftTight.castShadow = true;
 
 //#endregion
 
-//#region Right Foot
+//#region Left Foot
 var leftFootGeometry = new THREE.CylinderGeometry(0.1, 0.15, 0.09);
 var leftFoot = new THREE.Mesh(leftFootGeometry, rubber);
 leftFoot.position.y = -0.94;
@@ -297,8 +295,9 @@ scene.add(bodyGroup);
 
 //#endregion
 
-//#region Head
+//#region Head Group
 
+//#region Head
 let headGroup = new THREE.Group();
 
 const headGeometry = new THREE.BoxGeometry(1, 0.5, 0.5);
@@ -314,6 +313,7 @@ const head = new THREE.Mesh(headGeometry, headMaterial);
 head.position.y = 1;
 head.receiveShadow = true;
 head.castShadow = true;
+//#endregion
 
 //#region Left Eye
 var leftEyeGeometry = new THREE.SphereGeometry(0.15, 32, 16, 0, Math.PI);
@@ -377,7 +377,6 @@ rigthEar.castShadow = true;
 var antennaGeometry = new THREE.CylinderGeometry(0, 0.01, 0.5);
 var antenna = new THREE.Mesh(antennaGeometry, metal_006);
 antenna.position.y = 1.5;
-//antenna.position.x = 0.2;
 antenna.receiveShadow = true;
 antenna.castShadow = true;
 //#endregion
@@ -398,6 +397,7 @@ scene.add(headGroup);
 //#endregion
 
 //#region CREATE CAMERAS
+// Main camera
 const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -408,19 +408,21 @@ camera.position.x = 2;
 camera.position.z = 6;
 camera.position.y = 3;
 
+// Second camera - First Person Camera
 const cameraB = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 cameraB.position.set(
     (leftEye.position.x + rightEye.position.x) / 2,
     leftEye.position.y + 0.1,
     leftEye.position.z - 0.1);
 
+// Add camera to the head group so it moves around
 headGroup.add(cameraB);
 
 let activeCamera = camera;
 //#endregion
 
 //#region BACKGROUND
-scene.background = ceiling;
+scene.background = stars;
 
 // add plane 
 const planeGeometry = new THREE.PlaneGeometry(10, 10);
@@ -468,6 +470,7 @@ function createEyeLights() {
     leftEyeLight.castShadow = false
     leftEyeLight.position.set(leftEye.position.x, leftEye.position.y, leftEye.position.z + 0.2);
 
+    // Add lights to the head group so they move around
     headGroup.add(leftEyeLight);
     headGroup.add(rightEyeLight);
 }
@@ -482,26 +485,6 @@ function animate() {
     spotLight.intensity = options.spotLightIntensity;
 
     renderer.render(scene, activeCamera);
-}
-
-let maxRotationMembers = Math.PI / 9;
-let moveMembers = true;
-
-function walk() {
-    for (i = 0; i < 15; i++) {
-        if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
-            moveMembers = !moveMembers;
-        }
-
-        if (moveMembers) {
-            leftLeg.rotation.x += 0.02;
-            rightLeg.rotation.x -= 0.02;
-        }
-        else {
-            leftLeg.rotation.x -= 0.02;
-            rightLeg.rotation.x += 0.02;
-        }
-    }
 }
 
 renderer.setAnimationLoop(animate)
@@ -526,10 +509,34 @@ window.addEventListener("resize", function () {
 
 // Add key pressed event
 document.addEventListener("keydown", function (event) {
-    moveRobot(event.keyCode);
+    processRobotMovements(event.keyCode);
 });
 
-function moveRobot(number) {
+//#endregion
+
+//#region FUNCTIONS
+
+let maxRotationMembers = Math.PI / 9;
+let moveMembers = true;
+
+function walk() {
+    for (i = 0; i < 15; i++) {
+        if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
+            moveMembers = !moveMembers;
+        }
+
+        if (moveMembers) {
+            leftLeg.rotation.x += 0.02;
+            rightLeg.rotation.x -= 0.02;
+        }
+        else {
+            leftLeg.rotation.x -= 0.02;
+            rightLeg.rotation.x += 0.02;
+        }
+    }
+}
+
+function processRobotMovements(number) {
     switch (number) {
         case 73:
             resetRotationRobot();
@@ -572,13 +579,10 @@ const limiteXMax = 3.5;
 const limiteZMin = -3.5;
 const limiteZMax = 3.5;
 
-// translate robot
 function translateRobot(x = 0, z = 0) {
-    // Calculate new positions
     const novaPosX = bodyGroup.position.x + x;
     const novaPosZ = bodyGroup.position.z + z;
 
-    // Verify new positions agains limit
     if (novaPosX >= limiteXMin && novaPosX <= limiteXMax) {
         bodyGroup.position.x = novaPosX;
         headGroup.position.x = novaPosX;
@@ -602,12 +606,10 @@ function rotateRobot(number) {
     headGroup.rotation.y = Math.PI / number;
 }
 
-// rotate robot body
 function rotateRobotBody(y) {
     bodyGroup.rotation.y += y;
 }
 
-//rotate robot head
 function rotateRobotHead(y) {
     headGroup.rotation.y += y;
 }
@@ -619,8 +621,7 @@ function rotateRobotHead(y) {
 const gui = new dat.GUI();
 var camerasFolder = gui.addFolder("Cameras");
 
-camerasFolder.add(options, 'camera', { A: 'A', B: 'B' }).onChange(function (e) {
-    //switch between cameras
+camerasFolder.add(options, 'camera', { Main: 'A', FirstPerson: 'B' }).onChange(function (e) {
     if (e == "A") {
         activeCamera = camera;
     } else {
