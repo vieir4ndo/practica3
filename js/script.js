@@ -7,31 +7,9 @@ const options = {
     spotLightIntensity: 1,
     pointLight: true,
     directionalLight: true,
-    ambientLight: true
+    ambientLight: true,
+    camera: "A"
 };
-
-//#endregion
-
-//#region CREATE RENDERER AND SCENE
-const renderer = new THREE.WebGLRenderer();
-
-renderer.shadowMap.enabled = true;
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-document.body.appendChild(renderer.domElement);
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
-camera.position.x = 2;
-camera.position.z = 6;
-camera.position.y = 3;
 
 //#endregion
 
@@ -149,16 +127,16 @@ const rubber = new THREE.MeshStandardMaterial({
 
 //#endregion
 
-//#region BACKGROUND
-scene.background = ceiling;
+//#region CREATE RENDERER AND SCENE
+const renderer = new THREE.WebGLRenderer();
 
-// add plane 
-const planeGeometry = new THREE.PlaneGeometry(10, 10);
-const plane = new THREE.Mesh(planeGeometry, moon);
-scene.add(plane);
-plane.rotation.x = -0.5 * Math.PI;
-plane.position.y = -1;
-plane.receiveShadow = true;
+renderer.shadowMap.enabled = true;
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
 
 //#endregion
 
@@ -419,6 +397,41 @@ scene.add(headGroup);
 
 //#endregion
 
+//#region CREATE CAMERAS
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+camera.position.x = 2;
+camera.position.z = 6;
+camera.position.y = 3;
+
+const cameraB = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+cameraB.position.set(
+    (leftEye.position.x + rightEye.position.x) / 2,
+    leftEye.position.y + 0.1,
+    leftEye.position.z - 0.1);
+
+headGroup.add(cameraB);
+
+let activeCamera = camera;
+//#endregion
+
+//#region BACKGROUND
+scene.background = ceiling;
+
+// add plane 
+const planeGeometry = new THREE.PlaneGeometry(10, 10);
+const plane = new THREE.Mesh(planeGeometry, moon);
+scene.add(plane);
+plane.rotation.x = -0.5 * Math.PI;
+plane.position.y = -1;
+plane.receiveShadow = true;
+
+//#endregion
+
 //#region LIGHTS
 // ambient light
 const ambientLight = new THREE.AmbientLight(0x333333);
@@ -468,6 +481,7 @@ let moveMembers = true;
 
 function animate() {
 
+    // walking animation
     if (walk == true) {
         if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
             moveMembers = !moveMembers;
@@ -488,7 +502,7 @@ function animate() {
     spotLight.penumbra = options.spotLightPenumbra;
     spotLight.intensity = options.spotLightIntensity;
 
-    renderer.render(scene, camera);
+    renderer.render(scene, activeCamera);
 }
 
 renderer.setAnimationLoop(animate)
@@ -504,6 +518,10 @@ orbit.update();
 window.addEventListener("resize", function () {
     camera.aspect = this.window.innerWidth / this.window.innerHeight;
     camera.updateProjectionMatrix();
+
+    cameraB.aspect = this.window.innerWidth / this.window.innerHeight;
+    cameraB.updateProjectionMatrix();
+
     renderer.setSize(this.window.innerWidth, this.window.innerHeight);
 })
 
@@ -596,6 +614,18 @@ function rotateRobotHead(y) {
 //#region CONTROLS
 
 const gui = new dat.GUI();
+var camerasFolder = gui.addFolder("Cameras");
+
+camerasFolder.add(options, 'camera', { A: 'A', B: 'B' }).onChange(function (e) {
+    console.log(e);
+    //switch between cameras
+    if (e == "A") {
+        activeCamera = camera;
+    } else {
+        activeCamera = cameraB;
+    }
+});
+
 var lightsFolder = gui.addFolder('Lights');
 
 lightsFolder.add(options, "spotLight").onChange(function (e) {
@@ -639,7 +669,5 @@ lightsFolder.add(options, "ambientLight").onChange(function (e) {
         scene.remove(ambientLight);
     }
 })
-
-
 
 //#endregion
