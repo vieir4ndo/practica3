@@ -620,7 +620,6 @@ const gui = new dat.GUI();
 var camerasFolder = gui.addFolder("Cameras");
 
 camerasFolder.add(options, 'camera', { A: 'A', B: 'B' }).onChange(function (e) {
-    console.log(e);
     //switch between cameras
     if (e == "A") {
         activeCamera = camera;
