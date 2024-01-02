@@ -22,11 +22,14 @@ camera.position.y = 1;
 
 //#region IMPORT AND DEFINE TEXTURES 
 
+//const texture_url = "http://virtual.lab.inf.uva.es:23172";
+const texture_url = "../";
+
 const textureLoader = new THREE.TextureLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 
 //#region STARS TEXTURE 2D
-const stars_texture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/stars_texture.jpg'
+const stars_texture = texture_url + 'practica3/img/stars_texture.jpg'
 
 const ceiling = cubeTextureLoader.load([
     stars_texture,
@@ -39,7 +42,7 @@ const ceiling = cubeTextureLoader.load([
 //#endregion
 
 //#region METAL 006 TEXTURE 2D
-const metal_006_roughnessTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Metal_006_SD/Metal_006_roughness.jpg';
+const metal_006_roughnessTexture = texture_url + 'practica3/img/Metal_006_SD/Metal_006_roughness.jpg';
 
 const metal_006 = new THREE.MeshStandardMaterial({
     map: textureLoader.load(metal_006_roughnessTexture),
@@ -47,7 +50,7 @@ const metal_006 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL RUSTED TEXTURE 2D
-const metal_rusted_basecolor = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Metal_Rusted_010_SD/Metal_Rusted_010_basecolor.jpg';
+const metal_rusted_basecolor = texture_url + 'practica3/img/Metal_Rusted_010_SD/Metal_Rusted_010_basecolor.jpg';
 
 const metal_rusted = new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide,
@@ -56,12 +59,12 @@ const metal_rusted = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL 004 TEXTURE 3D
-const metal_004_aoTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_ambientOcclusion.jpg';
-const metal_004_basecolor = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_basecolor.jpg';
-const metal_004_metalnessTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_metallic.jpg';
-const metal_004_normalTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_normal.jpg';
-const metal_004_roughnessTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_roughness.jpg';
-const metal_004_emissiveTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_emissive.jpg';
+const metal_004_aoTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_ambientOcclusion.jpg';
+const metal_004_basecolor = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_basecolor.jpg';
+const metal_004_metalnessTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_metallic.jpg';
+const metal_004_normalTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_normal.jpg';
+const metal_004_roughnessTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_roughness.jpg';
+const metal_004_emissiveTexture = texture_url + 'practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_emissive.jpg';
 
 const metal_004 = new THREE.MeshStandardMaterial({
     aoMap: textureLoader.load(metal_004_aoTexture),
@@ -74,11 +77,11 @@ const metal_004 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region METAL 002 TEXTURE 3D
-const metal_002_aoTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_ambientOcclusion.jpg';
-const metal_002_basecolor = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_basecolor.jpg';
-const metal_002_metalnessTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_metallic.jpg';
-const metal_002_normalTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_normal.jpg';
-const metal_002_roughnessTexture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_roughness.jpg';
+const metal_002_aoTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_ambientOcclusion.jpg';
+const metal_002_basecolor = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_basecolor.jpg';
+const metal_002_metalnessTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_metallic.jpg';
+const metal_002_normalTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_normal.jpg';
+const metal_002_roughnessTexture = texture_url + 'practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_roughness.jpg';
 
 const metal_002 = new THREE.MeshStandardMaterial({
     aoMap: textureLoader.load(metal_002_aoTexture),
@@ -91,7 +94,7 @@ const metal_002 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region GLASS TEXTURE 2D
-const glass_basecolor = 'http://virtual.lab.inf.uva.es:23172/practica3/img/Glass_Window_001_SD/Glass_Window_001_basecolor.jpg';
+const glass_basecolor = texture_url + 'practica3/img/Glass_Window_001_SD/Glass_Window_001_basecolor.jpg';
 
 const green_glass = new THREE.MeshPhysicalMaterial({
     map: textureLoader.load(glass_basecolor),
@@ -114,7 +117,7 @@ const red_glass = new THREE.MeshPhysicalMaterial({
 //#endregion
 
 //#region MOON TEXTURE 2D
-const moon_texture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/moon_texture.jpg';
+const moon_texture = texture_url + 'practica3/img/moon_texture.jpg';
 const moon = new THREE.MeshStandardMaterial({
     map: textureLoader.load(moon_texture),
     side: THREE.DoubleSide
@@ -122,7 +125,7 @@ const moon = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region RUBBER TEXTURE 2D
-const rubber_texture = 'http://virtual.lab.inf.uva.es:23172/practica3/img/rubber_texture.avif';
+const rubber_texture = texture_url + 'practica3/img/rubber_texture.avif';
 const rubber = new THREE.MeshStandardMaterial({
     map: textureLoader.load(rubber_texture),
     side: THREE.DoubleSide
@@ -150,6 +153,7 @@ plane.receiveShadow = true;
 let bodyGroup = new THREE.Group();
 
 const bodyGeometry = new THREE.BoxGeometry(1, 1, 0.5);
+
 
 const bodyMaterial = [
     metal_006,
@@ -436,6 +440,8 @@ leftEyeLight.position.set(leftEye.position.x, leftEye.position.y, leftEye.positi
 headGroup.add(leftEyeLight);
 headGroup.add(rightEyeLight);
 
+//#endregion
+
 //#region ANIMATIONS
 
 let walk = true;
@@ -466,6 +472,7 @@ renderer.setAnimationLoop(animate)
 //#endregion
 
 //#region EVENTS
+
 // Add mouse move event
 const orbit = new THREE.OrbitControls(camera, renderer.domElement);
 orbit.update();
@@ -481,15 +488,19 @@ window.addEventListener("resize", function () {
 document.addEventListener("keydown", function (event) {
     switch (event.keyCode) {
         case 73:
+            resetRotationRobot();
             translateRobot(0, 0.1)
             break;
         case 75:
+            rotateRobot(1)
             translateRobot(0, -0.1)
             break;
         case 74:
+            rotateRobot(-2)
             translateRobot(-0.1)
             break;
         case 76:
+            rotateRobot(2)
             translateRobot(0.1)
             break;
         case 65:
@@ -534,6 +545,16 @@ function translateRobot(x = 0, z = 0) {
     }
 }
 
+function resetRotationRobot() {
+    bodyGroup.rotation.y = 0;
+    headGroup.rotation.y = 0;
+}
+
+function rotateRobot(number) {
+    bodyGroup.rotation.y = Math.PI / number;
+    headGroup.rotation.y = Math.PI / number;
+}
+
 // rotate robot body
 function rotateRobotBody(y) {
     bodyGroup.rotation.y += y;
@@ -545,3 +566,4 @@ function rotateRobotHead(y) {
 }
 
 //#endregion
+
