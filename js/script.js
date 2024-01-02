@@ -1,3 +1,17 @@
+//#region OPTIONS
+
+const options = {
+    spotLight: true,
+    spotLightAngle: 0.8,
+    spotLightPenumbra: 0,
+    spotLightIntensity: 1,
+    pointLight: true,
+    directionalLight: true,
+    ambientLight: true
+};
+
+//#endregion
+
 //#region CREATE RENDERER AND SCENE
 const renderer = new THREE.WebGLRenderer();
 
@@ -15,8 +29,9 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.z = 2;
-camera.position.y = 1;
+camera.position.x = 2;
+camera.position.z = 6;
+camera.position.y = 3;
 
 //#endregion
 
@@ -252,7 +267,7 @@ leftForearm.castShadow = true;
 //#region Left Hand
 const leftHandGeometry = new THREE.TorusGeometry(0.09, 0.04, 6, 5);
 const leftHand = new THREE.Mesh(leftHandGeometry, metal_rusted)
-leftHand.rotation.z = -Math.PI/7
+leftHand.rotation.z = -Math.PI / 7
 leftHand.position.x = -0.63;
 leftHand.position.y = -0.25;
 leftHand.receiveShadow = true;
@@ -414,10 +429,10 @@ scene.add(ambientLight);
 const spotLight = new THREE.SpotLight(0xFFFFED);
 scene.add(spotLight);
 spotLight.position.set(head.position.x, head.position.y + 1, head.position.z);
-spotLight.intensity = 1;
-spotLight.angle = 0.8;
+spotLight.intensity = options.spotLightIntensity;
+spotLight.angle = options.spotLightAngle;
 spotLight.castShadow = true;
-spotLight.penumbra = 0;
+spotLight.penumbra = options.spotLightPenumbra;
 spotLight.target = headGroup;
 
 // directional light
@@ -427,19 +442,22 @@ directionalLight.position.set(0, 2, 2);
 directionalLight.intensity = 1;
 directionalLight.castShadow = true;
 
+createEyeLights();
+
 // point lights
-rightEyeLight = new THREE.PointLight(0xFFFFFF, 1, 0.3);
-scene.add(rightEyeLight);
-rightEyeLight.castShadow = false
-rightEyeLight.position.set(rightEye.position.x, rightEye.position.y, rightEye.position.z + 0.2);
-leftEyeLight = new THREE.PointLight(0xFFFFFF, 1, 0.3);
-scene.add(leftEyeLight);
-leftEyeLight.castShadow = false
-leftEyeLight.position.set(leftEye.position.x, leftEye.position.y, leftEye.position.z + 0.2);
+function createEyeLights() {
+    rightEyeLight = new THREE.PointLight(0xFFFFFF, 5, 0.2);
+    scene.add(rightEyeLight);
+    rightEyeLight.castShadow = false
+    rightEyeLight.position.set(rightEye.position.x, rightEye.position.y, rightEye.position.z + 0.2);
+    leftEyeLight = new THREE.PointLight(0xFFFFFF, 5, 0.2);
+    scene.add(leftEyeLight);
+    leftEyeLight.castShadow = false
+    leftEyeLight.position.set(leftEye.position.x, leftEye.position.y, leftEye.position.z + 0.2);
 
-headGroup.add(leftEyeLight);
-headGroup.add(rightEyeLight);
-
+    headGroup.add(leftEyeLight);
+    headGroup.add(rightEyeLight);
+}
 //#endregion
 
 //#region ANIMATIONS
@@ -465,6 +483,11 @@ function animate() {
         }
     }
 
+    // spotlight changes
+    spotLight.angle = options.spotLightAngle;
+    spotLight.penumbra = options.spotLightPenumbra;
+    spotLight.intensity = options.spotLightIntensity;
+
     renderer.render(scene, camera);
 }
 
@@ -477,7 +500,7 @@ renderer.setAnimationLoop(animate)
 const orbit = new THREE.OrbitControls(camera, renderer.domElement);
 orbit.update();
 
-// Add change window size event
+//Add change window size event
 window.addEventListener("resize", function () {
     camera.aspect = this.window.innerWidth / this.window.innerHeight;
     camera.updateProjectionMatrix();
@@ -486,7 +509,11 @@ window.addEventListener("resize", function () {
 
 // Add key pressed event
 document.addEventListener("keydown", function (event) {
-    switch (event.keyCode) {
+    moveRobot(event.keyCode);
+});
+
+function moveRobot(number) {
+    switch (number) {
         case 73:
             resetRotationRobot();
             translateRobot(0, 0.1)
@@ -516,8 +543,7 @@ document.addEventListener("keydown", function (event) {
             rotateRobotHead(-0.1)
             break;
     }
-
-});
+}
 
 // Define limits to the robot movement
 const limiteXMin = -3.5;
@@ -567,3 +593,53 @@ function rotateRobotHead(y) {
 
 //#endregion
 
+//#region CONTROLS
+
+const gui = new dat.GUI();
+var lightsFolder = gui.addFolder('Lights');
+
+lightsFolder.add(options, "spotLight").onChange(function (e) {
+    if (e) {
+        scene.add(spotLight);
+    }
+    else {
+        scene.remove(spotLight);
+    }
+})
+lightsFolder.add(options, "spotLightAngle", 0, 1);
+lightsFolder.add(options, "spotLightPenumbra", 0, 1);
+lightsFolder.add(options, "spotLightIntensity", 0, 1);
+
+lightsFolder.add(options, "pointLight").onChange(function (e) {
+    if (e) {
+        createEyeLights();
+    }
+    else {
+        headGroup.remove(rightEyeLight);
+        headGroup.remove(leftEyeLight)
+        scene.remove(rightEyeLight);
+        scene.remove(leftEyeLight);
+    }
+})
+
+lightsFolder.add(options, "directionalLight").onChange(function (e) {
+    if (e) {
+        scene.add(directionalLight);
+    }
+    else {
+        scene.remove(directionalLight);
+    }
+})
+
+lightsFolder.add(options, "ambientLight").onChange(function (e) {
+    if (e) {
+        scene.add(ambientLight);
+    }
+    else {
+        scene.remove(ambientLight);
+    }
+})
+
+
+
+//#endregion

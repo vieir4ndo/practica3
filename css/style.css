@@ -1,3 +1,48 @@
 body {
     margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.button-container-translate {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-gap: 10px;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    transform: translate(0%, 0%);
+    z-index: 1;
+}
+
+
+.button-container-rotate {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-gap: 10px;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    transform: translate(0%, 0%);
+    z-index: 1;
+}
+
+.game-button {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
