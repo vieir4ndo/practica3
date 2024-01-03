@@ -313,7 +313,7 @@ head.receiveShadow = true;
 head.castShadow = true;
 //#endregion
 
-//#region Left Eye
+//#region Left Eye Group
 let leftEyeGroup = new THREE.Group();
 
 const leftOuterEyeGeometry = new THREE.SphereGeometry(5, 32, 32, Math.PI, Math.PI, 0, Math.PI);
@@ -366,7 +366,7 @@ leftRing.receiveShadow = true;
 leftRing.castShadow = true;
 //#endregion
 
-//#region Rigth Eye
+//#region Rigth Eye Group
 let rightEyeGroup = new THREE.Group();
 
 const rightOuterEyeGeometry = new THREE.SphereGeometry(5, 32, 32, Math.PI, Math.PI, 0, Math.PI);
@@ -545,6 +545,26 @@ function createEyeLights() {
 
 //#region ANIMATIONS
 
+let maxRotationMembers = Math.PI / 9;
+let moveMembers = true;
+
+function walk() {
+    for (i = 0; i < 15; i++) {
+        if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
+            moveMembers = !moveMembers;
+        }
+
+        if (moveMembers) {
+            leftLeg.rotation.x += 0.02;
+            rightLeg.rotation.x -= 0.02;
+        }
+        else {
+            leftLeg.rotation.x -= 0.02;
+            rightLeg.rotation.x += 0.02;
+        }
+    }
+}
+
 function animate() {
     // spotlight changes
     spotLight.angle = options.spotLightAngle;
@@ -578,30 +598,6 @@ window.addEventListener("resize", function () {
 document.addEventListener("keydown", function (event) {
     processRobotMovements(event.keyCode);
 });
-
-//#endregion
-
-//#region FUNCTIONS
-
-let maxRotationMembers = Math.PI / 9;
-let moveMembers = true;
-
-function walk() {
-    for (i = 0; i < 15; i++) {
-        if (Math.abs(leftLeg.rotation.x).toFixed(1) == Math.abs(maxRotationMembers).toFixed(1)) {
-            moveMembers = !moveMembers;
-        }
-
-        if (moveMembers) {
-            leftLeg.rotation.x += 0.02;
-            rightLeg.rotation.x -= 0.02;
-        }
-        else {
-            leftLeg.rotation.x -= 0.02;
-            rightLeg.rotation.x += 0.02;
-        }
-    }
-}
 
 function processRobotMovements(number) {
     switch (number) {
