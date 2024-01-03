@@ -34,35 +34,31 @@ const stars = cubeTextureLoader.load([
 //#region METAL 006 TEXTURE 2D
 const metal_006_roughnessTexture = '../practica3/img/Metal_006_SD/Metal_006_roughness.jpg';
 
-const metal_006 = new THREE.MeshStandardMaterial({
+const metal_006 = new THREE.MeshPhysicalMaterial({
     map: textureLoader.load(metal_006_roughnessTexture),
+    metalness: 0.5,
+    roughness: 0.2,
 });
 //#endregion
 
 //#region METAL RUSTED TEXTURE 2D
 const metal_rusted_basecolor = '../practica3/img/Metal_Rusted_010_SD/Metal_Rusted_010_basecolor.jpg';
 
-const metal_rusted = new THREE.MeshStandardMaterial({
-    side: THREE.DoubleSide,
+const metal_rusted = new THREE.MeshPhysicalMaterial({
     map: textureLoader.load(metal_rusted_basecolor),
+    metalness: 0.5,
+    roughness: 0.2,
+    side: THREE.DoubleSide
 });
 //#endregion
 
-//#region METAL 004 TEXTURE 3D
-const metal_004_aoTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_ambientOcclusion.jpg';
+//#region METAL 004 TEXTURE 2D
 const metal_004_basecolor = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_basecolor.jpg';
-const metal_004_metalnessTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_metallic.jpg';
-const metal_004_normalTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_normal.jpg';
-const metal_004_roughnessTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_roughness.jpg';
-const metal_004_emissiveTexture = '../practica3/img/Sci_fi_Metal_Panel_004_SD/Sci_fi_Metal_Panel_004_emissive.jpg';
 
-const metal_004 = new THREE.MeshStandardMaterial({
-    aoMap: textureLoader.load(metal_004_aoTexture),
+const metal_004 = new THREE.MeshPhysicalMaterial({
     map: textureLoader.load(metal_004_basecolor),
-    metalnessMap: textureLoader.load(metal_004_metalnessTexture),
-    normalMap: textureLoader.load(metal_004_normalTexture),
-    roughnessMap: textureLoader.load(metal_004_roughnessTexture),
-    emissiveMap: textureLoader.load(metal_004_emissiveTexture)
+    metalness: 0.5,
+    roughness: 0.2
 });
 //#endregion
 
@@ -73,7 +69,7 @@ const metal_002_metalnessTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_H
 const metal_002_normalTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_normal.jpg';
 const metal_002_roughnessTexture = '../practica3/img/Sci-fi_Hose_002_SD/Sci-fi_Hose_002_roughness.jpg';
 
-const metal_002 = new THREE.MeshStandardMaterial({
+const metal_002 = new THREE.MeshPhysicalMaterial({
     aoMap: textureLoader.load(metal_002_aoTexture),
     map: textureLoader.load(metal_002_basecolor),
     metalnessMap: textureLoader.load(metal_002_metalnessTexture),
@@ -84,24 +80,26 @@ const metal_002 = new THREE.MeshStandardMaterial({
 //#endregion
 
 //#region GLASS TEXTURE 2D
-const glass_basecolor = '../practica3/img/Glass_Window_001_SD/Glass_Window_001_basecolor.jpg';
+const glass_basecolor = '../practica3/img/Glass_Vintage_001_basecolor.jpg';
 
-const green_glass = new THREE.MeshPhysicalMaterial({
+const green_glass = new THREE.MeshPhongMaterial({
     map: textureLoader.load(glass_basecolor),
     color: 0x00FF00,
     metalness: 0.3,
     roughness: 0.5,
     transparent: true,
-    opacity: 1
+    opacity: 0.8,
+    side: THREE.DoubleSide
 });
 
-const red_glass = new THREE.MeshPhysicalMaterial({
+const red_glass = new THREE.MeshPhongMaterial({
     map: textureLoader.load(glass_basecolor),
     color: 0xFF0000,
     metalness: 0.3,
     roughness: 0.5,
     transparent: true,
-    opacity: 1
+    opacity: 0.8,
+    side: THREE.DoubleSide
 });
 
 //#endregion
@@ -316,15 +314,50 @@ head.castShadow = true;
 //#endregion
 
 //#region Left Eye
-var leftEyeGeometry = new THREE.SphereGeometry(0.15, 32, 16, 0, Math.PI);
-var leftEye = new THREE.Mesh(leftEyeGeometry, red_glass);
-leftEye.position.x = 0.25;
-leftEye.position.y = 1;
-leftEye.position.z = 0.25;
-leftEye.receiveShadow = true;
-leftEye.castShadow = true;
+let leftEyeGroup = new THREE.Group();
 
-const leftRingGeometry = new THREE.RingGeometry(0.2, 0.15, 32);
+const leftOuterEyeGeometry = new THREE.SphereGeometry(5, 32, 32, Math.PI, Math.PI, 0, Math.PI);
+const leftOuterEye = new THREE.Mesh(
+    leftOuterEyeGeometry,
+    red_glass
+);
+leftEyeGroup.add(leftOuterEye);
+leftOuterEye.rotation.x = Math.PI / 2;
+leftOuterEye.receiveShadow = true;
+leftOuterEye.castShadow = true;
+
+const leftInnerEyeGeometry = new THREE.SphereGeometry(4, 32, 32, Math.PI, Math.PI, 0, Math.PI);
+const leftInnerEyeMaterial = new THREE.MeshStandardMaterial({
+    color: 0x3A3B3C,
+});
+const leftInnerEye = new THREE.Mesh(
+    leftInnerEyeGeometry,
+    leftInnerEyeMaterial
+);
+leftEyeGroup.add(leftInnerEye);
+leftInnerEye.rotation.x = Math.PI / 2;
+leftInnerEye.receiveShadow = true;
+
+const leftPupilGeometry = new THREE.SphereGeometry(1.5, 16, 16, Math.PI, Math.PI, 0, Math.PI);
+const leftPupilMaterial = new THREE.MeshStandardMaterial({
+    color: 0x000000,
+});
+const leftPupil = new THREE.Mesh(
+    leftPupilGeometry,
+    leftPupilMaterial
+);
+leftEyeGroup.add(leftPupil);
+leftPupil.rotation.x = Math.PI / 2;
+leftPupil.position.y = leftPupil.position.z + Math.PI;
+leftPupil.receiveShadow = true;
+
+leftEyeGroup.scale.set(0.03, 0.03, 0.03);
+leftEyeGroup.rotation.x = + Math.PI / 2;
+leftEyeGroup.position.x = 0.25;
+leftEyeGroup.position.y = 1;
+leftEyeGroup.position.z = 0.25;
+
+const leftRingGeometry = new THREE.RingGeometry(0.2, 0.1, 32);
 var leftRing = new THREE.Mesh(leftRingGeometry, metal_rusted);
 leftRing.position.x = 0.25;
 leftRing.position.y = 1;
@@ -334,22 +367,56 @@ leftRing.castShadow = true;
 //#endregion
 
 //#region Rigth Eye
-var rightEyeGeometry = new THREE.SphereGeometry(0.15, 32, 16, 0, Math.PI);
-var rightEye = new THREE.Mesh(rightEyeGeometry, green_glass);
-rightEye.position.x = -0.25;
-rightEye.position.y = 1;
-rightEye.position.z = 0.25;
-rightEye.receiveShadow = true;
-rightEye.castShadow = true;
+let rightEyeGroup = new THREE.Group();
 
-const rightRingGeometry = new THREE.RingGeometry(0.2, 0.15, 32);
+const rightOuterEyeGeometry = new THREE.SphereGeometry(5, 32, 32, Math.PI, Math.PI, 0, Math.PI);
+const rightOuterEye = new THREE.Mesh(
+    rightOuterEyeGeometry,
+    green_glass
+);
+rightEyeGroup.add(rightOuterEye);
+rightOuterEye.rotation.x = Math.PI / 2;
+rightOuterEye.receiveShadow = true;
+rightOuterEye.castShadow = true;
+
+const rightInnerEyeGeometry = new THREE.SphereGeometry(4, 32, 32, Math.PI, Math.PI, 0, Math.PI);
+const rightInnerEyeMaterial = new THREE.MeshStandardMaterial({
+    color: 0x3A3B3C,
+});
+const rightInnerEye = new THREE.Mesh(
+    rightInnerEyeGeometry,
+    rightInnerEyeMaterial
+);
+rightEyeGroup.add(rightInnerEye);
+rightInnerEye.rotation.x = Math.PI / 2;
+rightInnerEye.receiveShadow = true;
+
+const rightPupilGeometry = new THREE.SphereGeometry(1.5, 16, 16, Math.PI, Math.PI, 0, Math.PI);
+const rightPupilMaterial = new THREE.MeshStandardMaterial({
+    color: 0x000000,
+});
+const rightPupil = new THREE.Mesh(
+    rightPupilGeometry,
+    rightPupilMaterial
+);
+rightEyeGroup.add(rightPupil);
+rightPupil.rotation.x = Math.PI / 2;
+rightPupil.position.y = rightPupil.position.z + Math.PI;
+rightPupil.receiveShadow = true;
+
+rightEyeGroup.scale.set(0.03, 0.03, 0.03);
+rightEyeGroup.rotation.x = + Math.PI / 2;
+rightEyeGroup.position.x = -0.25;
+rightEyeGroup.position.y = 1;
+rightEyeGroup.position.z = 0.25;
+
+const rightRingGeometry = new THREE.RingGeometry(0.2, 0.1, 32);
 var rightRing = new THREE.Mesh(rightRingGeometry, metal_rusted);
 rightRing.position.x = -0.25;
 rightRing.position.y = 1;
 rightRing.position.z = 0.255;
 rightRing.receiveShadow = true;
 rightRing.castShadow = true;
-
 //#endregion
 
 //#region Left Ear
@@ -382,9 +449,9 @@ antenna.castShadow = true;
 //#endregion
 
 headGroup.add(head);
-headGroup.add(leftEye);
+headGroup.add(leftEyeGroup);
 headGroup.add(leftRing);
-headGroup.add(rightEye);
+headGroup.add(rightEyeGroup);
 headGroup.add(rightRing);
 headGroup.add(leftEar);
 headGroup.add(rigthEar);
@@ -411,9 +478,9 @@ camera.position.y = 3;
 // Second camera - First Person Camera
 const cameraB = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 cameraB.position.set(
-    (leftEye.position.x + rightEye.position.x) / 2,
-    leftEye.position.y + 0.1,
-    leftEye.position.z - 0.1);
+    (leftEyeGroup.position.x + rightEyeGroup.position.x) / 2,
+    leftEyeGroup.position.y + 0.1,
+    leftEyeGroup.position.z - 0.1);
 
 // Add camera to the head group so it moves around
 headGroup.add(cameraB);
@@ -464,11 +531,11 @@ function createEyeLights() {
     rightEyeLight = new THREE.PointLight(0xFFFFFF, 5, 0.2);
     scene.add(rightEyeLight);
     rightEyeLight.castShadow = false
-    rightEyeLight.position.set(rightEye.position.x, rightEye.position.y, rightEye.position.z + 0.2);
+    rightEyeLight.position.set(rightEyeGroup.position.x, rightEyeGroup.position.y, rightEyeGroup.position.z + 0.2);
     leftEyeLight = new THREE.PointLight(0xFFFFFF, 5, 0.2);
     scene.add(leftEyeLight);
     leftEyeLight.castShadow = false
-    leftEyeLight.position.set(leftEye.position.x, leftEye.position.y, leftEye.position.z + 0.2);
+    leftEyeLight.position.set(leftEyeGroup.position.x, leftEyeGroup.position.y, leftEyeGroup.position.z + 0.2);
 
     // Add lights to the head group so they move around
     headGroup.add(leftEyeLight);
