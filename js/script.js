@@ -85,8 +85,6 @@ const glass_basecolor = '../practica3/img/Glass_Vintage_001_basecolor.jpg';
 const green_glass = new THREE.MeshPhongMaterial({
     map: textureLoader.load(glass_basecolor),
     color: 0x00FF00,
-    metalness: 0.3,
-    roughness: 0.5,
     transparent: true,
     opacity: 0.8,
     side: THREE.DoubleSide
@@ -95,8 +93,6 @@ const green_glass = new THREE.MeshPhongMaterial({
 const red_glass = new THREE.MeshPhongMaterial({
     map: textureLoader.load(glass_basecolor),
     color: 0xFF0000,
-    metalness: 0.3,
-    roughness: 0.5,
     transparent: true,
     opacity: 0.8,
     side: THREE.DoubleSide
