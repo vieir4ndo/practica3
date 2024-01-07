@@ -14,9 +14,24 @@ const options = {
 //#endregion
 
 //#region IMPORT AND DEFINE TEXTURES 
+var loadingManager = new THREE.LoadingManager();
 
-const textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader(loadingManager);
 const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+var loaderElement = document.getElementById('loader');
+
+loadingManager.onProgress = function (item, loaded, total) {
+    showLoader()
+};
+
+loadingManager.onLoad = function () {
+    hideLoader()
+};
+
+loadingManager.onError = function (url) {
+    console.error('Error loading ' + url);
+};
 
 //#region STARS TEXTURE 2D
 const stars_texture = '../practica3/img/stars_texture.jpg'
@@ -671,6 +686,14 @@ function rotateRobotBody(y) {
 
 function rotateRobotHead(y) {
     headGroup.rotation.y += y;
+}
+
+function showLoader() {
+    document.getElementById('loaderContainer').classList.remove('hidden');
+}
+
+function hideLoader() {
+    document.getElementById('loaderContainer').classList.add('hidden');
 }
 
 //#endregion
